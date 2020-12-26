@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Col, Nav, Table } from 'react-bootstrap';
 import {
+    Link,
     Redirect,
     Route,
     Switch,
@@ -49,10 +50,6 @@ const Data = () => (
 function App() {
     let location = useLocation();
     let { pathname } = location;
-    let [activeKey, setActiveKey] = useState('/data');
-    useEffect(() => {
-        setActiveKey(pathname);
-    }, [pathname]);
 
     let history = useHistory();
     function handleOnSelect(val) {
@@ -60,12 +57,12 @@ function App() {
     }
 
     return (
-        <div class="my-4">
+        <div className="my-4">
             <Col md={{ span: 6, offset: 3 }}>
-                <header class="mb-2">
+                <header className="mb-2">
                     <Nav
                         variant="pills"
-                        defaultActiveKey={activeKey}
+                        activeKey={pathname}
                         onSelect={handleOnSelect}
                     >
                         <Nav.Item>
@@ -83,7 +80,15 @@ function App() {
                     <Route path="/chart">
                         <Chart />
                     </Route>
-                    <Redirect to="/data" />
+                    <Route path="/" exact>
+                        <Redirect to="/data" />
+                    </Route>
+                    <div>
+                        <h2>Page not found</h2>
+                        <div>
+                            Go back to <Link to="/data">Data</Link>.
+                        </div>
+                    </div>
                 </Switch>
             </Col>
         </div>
