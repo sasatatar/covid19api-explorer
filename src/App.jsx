@@ -8,16 +8,12 @@ import {
     useHistory,
     useLocation,
 } from 'react-router-dom';
-import { useCovid19api } from './api';
 import './App.css';
 import { Data } from './routes/data';
 
 const Chart = () => <h2>Chart</h2>;
 
 function App() {
-    const [{ data: summary, loading, error }, refetchSummary] = useCovid19api(
-        '/summary',
-    );
     let location = useLocation();
     let { pathname } = location;
 
@@ -46,7 +42,7 @@ function App() {
                 </header>
                 <Switch>
                     <Route path="/data">
-                        <Data data={summary} />
+                        <Data />
                     </Route>
                     <Route path="/chart">
                         <Chart />
