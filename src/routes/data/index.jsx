@@ -2,17 +2,27 @@ import React from 'react';
 import { Spinner, Table, Alert } from 'react-bootstrap';
 import { useCovid19api } from '../../api';
 
-export const Data = () => {
+export const Data = ({ sortBy, filter }) => {
     let [{ data, loading, error }] = useCovid19api('/summary');
     // calculate active cases:
     let { Global: summary, Countries: records } = data ?? {};
     records = records ?? [];
-    records = records.map((r) => {
-        return {
-            ...r,
-            Active: r.TotalConfirmed - r.TotalDeaths - r.TotalRecovered,
-        };
-    });
+    records = records
+        .map((r) => {
+            return {
+                ...r,
+                Active: r.TotalConfirmed - r.TotalDeaths - r.TotalRecovered,
+            };
+        })
+        .filter((r) => {
+            if (!filter) return true;
+            return r.Country.toLowerCase().includes(filter.toLowerCase());
+        })
+        .sort((a, b) => {
+            let res = a[sortBy] >= b[sortBy] ? -1 : 1;
+            return res;
+        });
+
     if (summary) {
         summary['Active'] =
             summary.TotalConfirmed -

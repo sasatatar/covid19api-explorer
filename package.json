@@ -7,6 +7,9 @@
         "lint": "prettier --check \"src/**/*.{js,jsx}\""
     },
     "dependencies": {
+        "@devexpress/dx-react-chart": "^2.7.4",
+        "@devexpress/dx-react-chart-bootstrap4": "^2.7.4",
+        "@devexpress/dx-react-core": "^2.7.4",
         "axios": "^0.21.1",
         "axios-hooks": "^2.2.0",
         "bootstrap": "^4.5.3",
