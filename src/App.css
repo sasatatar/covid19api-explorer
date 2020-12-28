@@ -43,3 +43,13 @@
         transform: rotate(360deg);
     }
 }
+
+/* table {
+    position: relative;
+}
+th {
+    background: white;
+    position: sticky;
+    top: 0px;
+    border-top: solid 1px gray;
+} */

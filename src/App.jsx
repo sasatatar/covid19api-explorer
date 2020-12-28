@@ -1,5 +1,5 @@
 import React from 'react';
-import { Col, Nav, Table } from 'react-bootstrap';
+import { Nav } from 'react-bootstrap';
 import {
     Link,
     Redirect,
@@ -8,46 +8,16 @@ import {
     useHistory,
     useLocation,
 } from 'react-router-dom';
+import { useCovid19api } from './api';
 import './App.css';
+import { Data } from './routes/data';
 
 const Chart = () => <h2>Chart</h2>;
 
-const Data = () => (
-    <>
-        <h2>Data</h2>
-        <Table striped bordered hover size="sm">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Username</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td colSpan="2">Larry the Bird</td>
-                    <td>@twitter</td>
-                </tr>
-            </tbody>
-        </Table>
-    </>
-);
-
 function App() {
+    const [{ data: summary, loading, error }, refetchSummary] = useCovid19api(
+        '/summary',
+    );
     let location = useLocation();
     let { pathname } = location;
 
@@ -57,8 +27,9 @@ function App() {
     }
 
     return (
-        <div className="my-4">
-            <Col md={{ span: 6, offset: 3 }}>
+        <div className="py-4 h-100">
+            <div className="col-md-6 d-flex flex-column h-100 offset-md-3">
+                <h3 className="text-info">Covid19 API Explorer</h3>
                 <header className="mb-2">
                     <Nav
                         variant="pills"
@@ -75,7 +46,7 @@ function App() {
                 </header>
                 <Switch>
                     <Route path="/data">
-                        <Data />
+                        <Data data={summary} />
                     </Route>
                     <Route path="/chart">
                         <Chart />
@@ -90,7 +61,7 @@ function App() {
                         </div>
                     </div>
                 </Switch>
-            </Col>
+            </div>
         </div>
     );
 }
