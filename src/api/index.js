@@ -3,16 +3,16 @@ import { makeUseAxios } from 'axios-hooks';
 import { useEffect, useReducer } from 'react';
 import { data } from './dummyData';
 
-// export const useCovid19api = makeUseAxios({
-//     axios: axios.create({
-//         baseURL: 'https://api.covid19api.com/',
-//         headers: {
-//             'X-Access-Token': import.meta.env.SNOWPACK_PUBLIC_ACCESS_TOKEN,
-//         },
-//     }),
-// });
+export const useCovid19api = makeUseAxios({
+    axios: axios.create({
+        baseURL: 'https://api.covid19api.com/',
+        headers: {
+            'X-Access-Token': import.meta.env.SNOWPACK_PUBLIC_ACCESS_TOKEN,
+        },
+    }),
+});
 
-export const useCovid19api = () => {
+export const useCovid19api2 = () => {
     const [state, dispatch] = useReducer(
         (state, action) => {
             switch (action.type) {
